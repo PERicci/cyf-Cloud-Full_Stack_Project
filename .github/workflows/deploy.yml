@@ -25,7 +25,7 @@ jobs:
 
     - name: Check nvm and node
       run: |
-        ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@ec2-52-90-98-83.compute-1.amazonaws.com "nvm -version && npm --version"
+        ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@ec2-52-90-98-83.compute-1.amazonaws.com "nvm -v && node -v && npm --version"
     # - name: Install dependencies and build
     #   run: |
     #     ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@ec2-52-90-98-83.compute-1.amazonaws.com "cd /home/ubuntu/cyf-Cloud-Full_Stack_Project && npm install && npm run build"
