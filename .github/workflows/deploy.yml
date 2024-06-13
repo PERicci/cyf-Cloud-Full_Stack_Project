@@ -22,7 +22,7 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@ec2-52-90-98-83.compute-1.amazonaws.com "cd /home/ubuntu/cyf-Cloud-Full_Stack_Project && git fetch && git pull"
 
-    - name: Install dependencies and build
+    - name: Install dependencies, build, and start app
       run: |
         ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@ec2-52-90-98-83.compute-1.amazonaws.com << 'EOF'
           source ~/.bashrc
@@ -36,6 +36,3 @@ jobs:
           pm2 start npm --name "video-recommendations" -- start
           pm2 save
         EOF
-    # - name: Restart the server
-    #   run: |
-    #     ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@ec2-52-90-98-83.compute-1.amazonaws.com "cd /home/ubuntu/cyf-Cloud-Full_Stack_Project && pm2 restart all"
