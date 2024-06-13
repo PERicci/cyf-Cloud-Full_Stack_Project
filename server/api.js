@@ -1,17 +1,21 @@
 import { Router } from "express";
+import dayjs from "dayjs";
 import db from "./db.js";
 const router = Router();
 
 router.get("/videos", async (_, res) => {
 	try {
-		const result = await db.query("SELECT * FROM videos");
+		const result = await db.query("SELECT * FROM videos ORDER BY id");
 
 		const videos = result.rows.map((video) => {
+			const localPostedAt = dayjs(video.posted_at).format("DD-MM-YYYY, HH:mm:ss");
+
 			return {
 				id: video.id,
 				title: video.title,
 				url: video.src,
 				vote: video.vote,
+				postedAt: localPostedAt,
 			};
 		});
 
@@ -35,8 +39,8 @@ router.get("/videos", async (_, res) => {
 router.post("/videos", async (req, res) => {
 	const { title, url, vote } = req.body;
 	const addVideoInDatabase = await db.query(
-		"INSERT INTO videos (title, src,vote) VALUES ($1, $2, $3) RETURNING *",
-		[title, url, vote]
+		"INSERT INTO videos (title, src) VALUES ($1, $2) RETURNING *",
+		[title, url]
 	);
 	res.json({
 		success: true,

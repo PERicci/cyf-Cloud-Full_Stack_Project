@@ -50,6 +50,7 @@ function ListVideos() {
 						></iframe>
 						<Voting videoId={video.id} initialVote={video.vote || 0} />
 						<DeleteVideo videoId={video.id} fetchVideos={fetchVideos} />
+						<div className="posted-date">{video.postedAt}</div>
 					</li>
 				))}
 			</ul>
