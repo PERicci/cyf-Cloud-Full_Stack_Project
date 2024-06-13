@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main  # ou a branch que você deseja monitorar para deploy
+      - main
 
 jobs:
   deploy:
