@@ -22,10 +22,10 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@ec2-52-90-98-83.compute-1.amazonaws.com "cd /home/ubuntu/cyf-Cloud-Full_Stack_Project && git fetch && git pull"
 
-
-    - name: Install nvm and node
+    - name: Check nvm and node
       run: |
-        ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@ec2-52-90-98-83.compute-1.amazonaws.com "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash && source ~/.bashrc && nvm install --lts"
+        ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@ec2-52-90-98-83.compute-1.amazonaws.com "source ~/.bashrc && ll"
+
     # - name: Install dependencies and build
     #   run: |
     #     ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@ec2-52-90-98-83.compute-1.amazonaws.com "cd /home/ubuntu/cyf-Cloud-Full_Stack_Project && npm install && npm run build"
