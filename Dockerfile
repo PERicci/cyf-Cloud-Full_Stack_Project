@@ -19,7 +19,7 @@ FROM node:20.14-alpine
 WORKDIR /app
 
 COPY --from=build /app/server /app/server
-COPY --from=build /app/client/dist /app/client/dist
+COPY --from=build /app/server/static /app/server/static
 COPY --from=build /app/node_modules /app/node_modules
 COPY --from=build /app/package*.json /app/
 
