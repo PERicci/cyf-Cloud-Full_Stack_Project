@@ -18,11 +18,6 @@ jobs:
           echo "${{ secrets.EC2_SSH_KEY }}" > ec2_key.pem
           chmod 400 ec2_key.pem
 
-      # - name: Build Docker image
-      #   run: docker build -t video-recommendations:latest .
-
-      # - name: Log in to Docker Hub
-      #   run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -31,11 +26,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      # - name: Push Docker image
-      #   run: |
-      #     docker tag video-recommendations:latest ${{ secrets.DOCKER_USERNAME }}/video-recommendations:latest &&
-      #     docker push ${{ secrets.DOCKER_USERNAME }}/video-recommendations:latest
 
       - name: Push Docker image
         uses: docker/build-push-action@v6
@@ -54,41 +44,4 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
-# name: Deploy to EC2
-
-# on:
-#   push:
-#     branches:
-#       - main
-
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v3
-
-#     - name: Add SSH key
-#       run: |
-#         echo "${{ secrets.EC2_SSH_KEY }}" > ec2_key.pem
-#         chmod 400 ec2_key.pem
-
-#     - name: Fetch latest code on EC2
-#       run: |
-#         ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@ec2-52-90-98-83.compute-1.amazonaws.com "cd /home/ubuntu/cyf-Cloud-Full_Stack_Project && git fetch && git pull"
-
-#     - name: Install dependencies, build, and start app
-#       run: |
-#         ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@ec2-52-90-98-83.compute-1.amazonaws.com << 'EOF'
-#           source ~/.bashrc
-#           export NVM_DIR="$HOME/.nvm"
-#           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-#           nvm use --lts
-#           cd /home/ubuntu/cyf-Cloud-Full_Stack_Project
-#           npm install
-#           npm run build
-#           pm2 kill
-#           pm2 start npm --name "video-recommendations" -- start
-#           pm2 save
-#         EOF
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
