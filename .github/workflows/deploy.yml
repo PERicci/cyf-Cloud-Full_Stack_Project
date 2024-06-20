@@ -42,9 +42,11 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/video-recommendations:latest
             docker stop video-recommendations || true
             docker rm video-recommendations || true
-            docker run -d --restart unless-stopped -p 3000:3000 -p 3100:3100 --name video-recommendations ${{ secrets.DOCKER_USERNAME }}/video-recommendations:latest
+            docker run -d --restart unless-stopped -p 3000:3000 -p 3100:3100 --name video-recommendations \
+              -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
+              ${{ secrets.DOCKER_USERNAME }}/video-recommendations:latest
           EOF
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
