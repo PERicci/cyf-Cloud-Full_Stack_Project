@@ -1,3 +1,13 @@
 dist/
 node_modules/
 .env
+
+server/static/
+backups/
+e2e/
+client/src/tests/
+server/test/
+data/
+.git
+.gitignore
+.md
