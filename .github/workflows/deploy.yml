@@ -38,7 +38,7 @@ jobs:
 
       - name: SSH and deploy on EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@ec2-52-90-98-83.compute-1.amazonaws.com << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@ec2-52-23-223-165.compute-1.amazonaws.com << 'EOF'
             docker pull ${{ secrets.DOCKER_USERNAME }}/video-recommendations:latest
             docker stop video-recommendations || true
             docker rm video-recommendations || true
